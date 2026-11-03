@@ -36,7 +36,6 @@
     </script>
 
     <style>
-        /* Floating Soft Hearts Background Animation */
         .heart-float {
             position: fixed;
             color: rgba(244, 114, 182, 0.25);
@@ -50,7 +49,6 @@
             100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* Paper Journal Shadow & Texture */
         .journal-card {
             background-color: #FAF5EF;
             background-image: radial-gradient(#e5e0d8 0.75px, transparent 0.75px);
@@ -58,7 +56,6 @@
             box-shadow: 0 10px 30px -5px rgba(190, 24, 93, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
         }
 
-        /* Decorative Tape Effect */
         .tape {
             background-color: rgba(254, 240, 138, 0.7);
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -91,9 +88,9 @@
         </button>
     </div>
 
-    <!-- Audio Element dengan link cadangan yang lebih stabil -->
+    <!-- Audio Element mengambil file lokal di folder yang sama -->
     <audio id="bg-music" loop preload="auto">
-        <source src="https://archive.org/download/stephen-sanchez-until-i-found-you/Stephen%20Sanchez%20-%20Until%20I%20Found%20You.mp3" type="audio/mpeg">
+        <source src="until-i-found-you.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Main Content Container -->
@@ -213,7 +210,6 @@
     </main>
 
     <script>
-        // Floating Heart Particles
         const heartContainer = document.getElementById('heart-container');
         const heartIcons = ['💖', '🌸', '✨', '💕', '🎀', '💌'];
 
@@ -231,7 +227,6 @@
 
         setInterval(createHeart, 500);
 
-        // Music Control Logic (Single Song: Until I Found You)
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         const musicLabel = document.getElementById('music-label');
@@ -257,7 +252,6 @@
 
         musicToggle.addEventListener('click', togglePlay);
 
-        // Auto Play Attempt saat pengguna melakukan klik pertama di area layar manapun
         document.body.addEventListener('click', function startAudioOnFirstClick() {
             if (!isPlaying) {
                 togglePlay();
@@ -265,7 +259,6 @@
             document.body.removeEventListener('click', startAudioOnFirstClick);
         }, { once: true });
 
-        // Blow Candle Logic
         let candleBlown = false;
         function blowCandle() {
             if (candleBlown) return;
@@ -286,7 +279,6 @@
             });
         }
 
-        // Celebration Confetti
         function popConfetti() {
             confetti({
                 particleCount: 120,
