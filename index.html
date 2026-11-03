@@ -81,37 +81,21 @@
     <div id="heart-container"></div>
 
     <!-- Floating Music Player Button -->
-    <div class="fixed top-5 right-5 z-50 flex flex-col items-end">
-        <button id="music-toggle" class="w-12 h-12 rounded-full bg-white/90 border-2 border-pink-200 text-roseDeep shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition">
-            <i id="music-icon" class="fas fa-music text-lg"></i>
-        </button>
-
-        <!-- Dynamic Music Info & Selector Dropdown -->
-        <div id="music-selector" class="hidden mt-2 bg-white/95 backdrop-blur border border-pink-200 p-3 rounded-2xl shadow-xl w-60 text-xs text-gray-700 space-y-2">
-            <div class="font-bold text-roseDeep text-center pb-1 border-b border-pink-100 flex items-center justify-center gap-1">
-                <span>🎵 Select Song</span>
-            </div>
-            <div class="space-y-1">
-                <button onclick="changeSong(0)" class="song-btn w-full text-left p-2 rounded-xl bg-pink-100/70 font-semibold text-roseDeep transition flex justify-between items-center">
-                    <span class="truncate">Until I Found You - Stephen Sanchez</span>
-                    <i class="fas fa-heart text-[10px]"></i>
-                </button>
-                <button onclick="changeSong(1)" class="song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600">
-                    <span class="truncate">Enchanted - Taylor Swift</span>
-                </button>
-                <button onclick="changeSong(2)" class="song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600">
-                    <span class="truncate">Lover - Taylor Swift</span>
-                </button>
-                <button onclick="changeSong(3)" class="song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600">
-                    <span class="truncate">Perfect - Ed Sheeran</span>
-                </button>
-            </div>
+    <div class="fixed top-5 right-5 z-50 flex items-center gap-2">
+        <!-- Label Informasi Lagu Singkat -->
+        <div id="music-label" class="hidden bg-white/90 backdrop-blur border border-pink-200 px-3 py-1.5 rounded-full text-xs font-semibold text-roseDeep shadow-md animate-pulse">
+            🎵 Until I Found You
         </div>
+
+        <!-- Tombol Play/Pause -->
+        <button id="music-toggle" class="w-12 h-12 rounded-full bg-white/90 border-2 border-pink-200 text-roseDeep shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition">
+            <i id="music-icon" class="fas fa-play text-lg ml-0.5"></i>
+        </button>
     </div>
 
-    <!-- Audio Element -->
-    <audio id="bg-music" loop>
-        <source id="audio-source" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <!-- Audio Element (Khusus Lagu Until I Found You) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://ia804702.us.archive.org/30/items/stephen-sanchez-until-i-found-you/Stephen%20Sanchez%20-%20Until%20I%20Found%20You.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Main Content Container -->
@@ -241,56 +225,39 @@
 
         setInterval(createHeart, 500);
 
-        // Music Playlist & Control Logic
-        const songs = [
-            { title: "Until I Found You - Stephen Sanchez", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { title: "Enchanted - Taylor Swift", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { title: "Lover - Taylor Swift", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { title: "Perfect - Ed Sheeran", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
-        ];
-
+        // Music Control Logic (Single Song: Until I Found You)
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
+        const musicLabel = document.getElementById('music-label');
         const bgMusic = document.getElementById('bg-music');
-        const audioSource = document.getElementById('audio-source');
-        const musicSelector = document.getElementById('music-selector');
         let isPlaying = false;
 
-        // Toggle music & menu
-        musicToggle.addEventListener('click', () => {
-            musicSelector.classList.toggle('hidden');
+        function togglePlay() {
             if (isPlaying) {
                 bgMusic.pause();
-                musicIcon.className = 'fas fa-music text-lg';
+                musicIcon.className = 'fas fa-play text-lg ml-0.5';
+                musicLabel.classList.add('hidden');
                 isPlaying = false;
             } else {
-                playCurrentSong();
+                bgMusic.play().then(() => {
+                    musicIcon.className = 'fas fa-pause text-lg ml-0';
+                    musicLabel.classList.remove('hidden');
+                    isPlaying = true;
+                }).catch(e => {
+                    console.log("Perlu interaksi pertama dari pengguna.");
+                });
             }
-        });
-
-        function playCurrentSong() {
-            bgMusic.play().then(() => {
-                isPlaying = true;
-                musicIcon.className = 'fas fa-pause text-lg';
-            }).catch(e => console.log("User interaction required"));
         }
 
-        function changeSong(index) {
-            const songBtns = document.querySelectorAll('.song-btn');
-            songBtns.forEach((btn, i) => {
-                if (i === index) {
-                    btn.className = "song-btn w-full text-left p-2 rounded-xl bg-pink-100/70 font-semibold text-roseDeep transition flex justify-between items-center";
-                    btn.innerHTML = `<span class="truncate">${songs[i].title}</span><i class="fas fa-heart text-[10px]"></i>`;
-                } else {
-                    btn.className = "song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600";
-                    btn.innerHTML = `<span class="truncate">${songs[i].title}</span>`;
-                }
-            });
+        musicToggle.addEventListener('click', togglePlay);
 
-            audioSource.src = songs[index].url;
-            bgMusic.load();
-            playCurrentSong();
-        }
+        // Auto Play Attempt saat pengguna melakukan klik pertama di area layar manapun
+        document.body.addEventListener('click', function startAudioOnFirstClick() {
+            if (!isPlaying) {
+                togglePlay();
+            }
+            document.body.removeEventListener('click', startAudioOnFirstClick);
+        }, { once: true });
 
         // Blow Candle Logic
         let candleBlown = false;
