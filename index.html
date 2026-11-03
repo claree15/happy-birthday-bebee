@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy birthday myy bebee 💕</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFFDF9',
+                        blush: '#FCE7F1',
+                        softPink: '#F472B6',
+                        roseDeep: '#BE185D',
+                        pastelYellow: '#FEF08A',
+                        paperBg: '#FAF5EF'
+                    },
+                    fontFamily: {
+                        handwriting: ['"Caveat"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Nunito"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Floating Soft Hearts Background Animation */
+        .heart-float {
+            position: fixed;
+            color: rgba(244, 114, 182, 0.25);
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Paper Journal Shadow & Texture */
+        .journal-card {
+            background-color: #FAF5EF;
+            background-image: radial-gradient(#e5e0d8 0.75px, transparent 0.75px);
+            background-size: 12px 12px;
+            box-shadow: 0 10px 30px -5px rgba(190, 24, 93, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Decorative Tape Effect */
+        .tape {
+            background-color: rgba(254, 240, 138, 0.7);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+        }
+
+        .flame-glow {
+            animation: pulseGlow 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { transform: scale(1); filter: drop-shadow(0 0 4px #F472B6); }
+            to { transform: scale(1.15); filter: drop-shadow(0 0 12px #BE185D); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blush via-cream to-blush text-gray-800 min-h-screen font-sans relative overflow-x-hidden pb-12">
+
+    <!-- Floating Background Elements -->
+    <div id="heart-container"></div>
+
+    <!-- Floating Music Player Button -->
+    <div class="fixed top-5 right-5 z-50 flex flex-col items-end">
+        <button id="music-toggle" class="w-12 h-12 rounded-full bg-white/90 border-2 border-pink-200 text-roseDeep shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition">
+            <i id="music-icon" class="fas fa-music text-lg"></i>
+        </button>
+
+        <!-- Dynamic Music Info & Selector Dropdown -->
+        <div id="music-selector" class="hidden mt-2 bg-white/95 backdrop-blur border border-pink-200 p-3 rounded-2xl shadow-xl w-60 text-xs text-gray-700 space-y-2">
+            <div class="font-bold text-roseDeep text-center pb-1 border-b border-pink-100 flex items-center justify-center gap-1">
+                <span>🎵 Select Song</span>
+            </div>
+            <div class="space-y-1">
+                <button onclick="changeSong(0)" class="song-btn w-full text-left p-2 rounded-xl bg-pink-100/70 font-semibold text-roseDeep transition flex justify-between items-center">
+                    <span class="truncate">Until I Found You - Stephen Sanchez</span>
+                    <i class="fas fa-heart text-[10px]"></i>
+                </button>
+                <button onclick="changeSong(1)" class="song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600">
+                    <span class="truncate">Enchanted - Taylor Swift</span>
+                </button>
+                <button onclick="changeSong(2)" class="song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600">
+                    <span class="truncate">Lover - Taylor Swift</span>
+                </button>
+                <button onclick="changeSong(3)" class="song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600">
+                    <span class="truncate">Perfect - Ed Sheeran</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="bg-music" loop>
+        <source id="audio-source" src="https://ia804702.us.archive.org/30/items/stephen-sanchez-until-i-found-you/Stephen%20Sanchez%20-%20Until%20I%20Found%20You.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Content Container -->
+    <main class="max-w-2xl mx-auto px-4 pt-12 space-y-8 relative z-10">
+        
+        <!-- HEADER SECTION -->
+        <section class="text-center">
+            <h1 class="text-4xl sm:text-5xl font-handwriting font-bold text-roseDeep leading-tight">
+                Happy birthday myy bebee 💕
+            </h1>
+            <p class="text-xs sm:text-sm text-gray-500 font-medium mt-2">
+                Every moment with you is my favorite memory.
+            </p>
+
+            <!-- CAKE CARD -->
+            <div class="mt-8 relative journal-card p-6 rounded-3xl border-2 border-pink-100">
+                <!-- Decorative Washi Tape -->
+                <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 rotate-[-1deg] rounded-sm"></div>
+
+                <div class="flex flex-col items-center">
+                    <div id="cake" class="cursor-pointer group flex flex-col items-center" onclick="blowCandle()">
+                        <!-- Flame -->
+                        <div id="flame" class="flame-glow w-4 h-6 bg-amber-400 rounded-full border border-yellow-200 -mb-1 z-10 transition-all duration-500"></div>
+                        <!-- Candle -->
+                        <div class="w-3 h-8 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-300 rounded-t-sm shadow-inner"></div>
+                        <!-- Top Cake Layer -->
+                        <div class="w-36 h-12 bg-pink-200 rounded-t-2xl border-b-4 border-pink-300 flex items-center justify-center relative shadow-sm">
+                            <span class="text-[11px] text-roseDeep font-bold tracking-widest uppercase">My Dearest</span>
+                        </div>
+                        <!-- Bottom Cake Layer -->
+                        <div class="w-52 h-14 bg-rose-100 rounded-t-xl border-b-4 border-pink-200 flex items-center justify-center shadow-md">
+                            <span class="text-roseDeep font-handwriting text-2xl font-bold">Make a wish 🌸</span>
+                        </div>
+                        <!-- Plate -->
+                        <div class="w-60 h-3 bg-gray-200 rounded-full shadow-md"></div>
+                    </div>
+
+                    <p id="cake-instruction" class="mt-4 text-xs font-semibold text-roseDeep bg-pink-100/70 px-4 py-1.5 rounded-full border border-pink-200">
+                        ✨ Sentuh lilin untuk meniupnya! ✨
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOVE LETTER SCRAPBOOK CARD -->
+        <section class="journal-card p-6 sm:p-8 rounded-3xl border-2 border-pink-100 relative">
+            <!-- Decorative Tape -->
+            <div class="tape absolute -top-3 left-6 w-20 h-5 rotate-[-4deg]"></div>
+            <div class="tape absolute -top-3 right-6 w-20 h-5 rotate-[3deg]"></div>
+
+            <div class="flex items-center space-x-3 border-b-2 border-dashed border-pink-200 pb-4 mb-4">
+                <span class="text-2xl">💌</span>
+                <h2 class="text-2xl font-handwriting font-bold text-roseDeep">A Short Note For You</h2>
+            </div>
+
+            <div class="space-y-3 text-gray-700 text-sm sm:text-base leading-relaxed font-sans">
+                <p class="font-bold text-roseDeep text-base font-serif italic">
+                    "Happy beloved birthday, bebee! 🎉❤️"
+                </p>
+                <p>
+                    Thank you for being my happiest place and my sweetest home. I hope that the universe will give you all the good and genuine things that you deserve.
+                </p>
+                <p>
+                    And also, I'm so proud of you for getting through what you shouldn't have had to go through. Wishing you a day full of laughter, love, and everything you've ever wished for.
+                </p>
+            </div>
+
+            <div class="mt-6 text-right font-handwriting text-2xl font-bold text-roseDeep">
+                Forever yours, ❤️
+            </div>
+        </section>
+
+        <!-- SNAPSHOTS / PHOTO GALLERY -->
+        <section class="space-y-4">
+            <div class="text-center">
+                <h2 class="text-3xl font-handwriting font-bold text-roseDeep">Our Little Memories 📷</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <!-- Photo 1: Selfie Cheerful Smile -->
+                <div class="journal-card p-3 rounded-2xl border border-pink-100 shadow-md transform hover:-rotate-1 hover:scale-105 transition duration-300">
+                    <img src="input_file_0.png" alt="Your Joy Is My Sunshine" class="w-full aspect-square object-cover rounded-xl">
+                    <p class="text-center font-handwriting text-xl text-gray-700 mt-2">Your Joy Is My Sunshine ☀️</p>
+                </div>
+                <!-- Photo 2: Romantic Night with Flowers -->
+                <div class="journal-card p-3 rounded-2xl border border-pink-100 shadow-md transform hover:rotate-2 hover:scale-105 transition duration-300">
+                    <img src="input_file_1.png" alt="Flowers & Forever With You" class="w-full aspect-square object-cover rounded-xl">
+                    <p class="text-center font-handwriting text-xl text-gray-700 mt-2">Flowers & Forever With You 💐</p>
+                </div>
+                <!-- Photo 3: Dinner Date Moment -->
+                <div class="journal-card p-3 rounded-2xl border border-pink-100 shadow-md transform hover:-rotate-2 hover:scale-105 transition duration-300">
+                    <img src="input_file_2.png" alt="Dinner Dates & Precious Moments" class="w-full aspect-square object-cover rounded-xl">
+                    <p class="text-center font-handwriting text-xl text-gray-700 mt-2">Dinner Dates & Precious Moments 🕯️</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CELEBRATION BUTTON -->
+        <section class="text-center pt-4">
+            <button onclick="popConfetti()" class="bg-gradient-to-r from-pink-400 to-rose-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg hover:shadow-pink-300/50 hover:scale-105 active:scale-95 transition">
+                🎉 Tap For Celebration!
+            </button>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-xs text-pink-400 font-semibold pt-6">
+            Made with all my heart for you ✨
+        </footer>
+    </main>
+
+    <script>
+        // Floating Heart Particles
+        const heartContainer = document.getElementById('heart-container');
+        const heartIcons = ['💖', '🌸', '✨', '💕', '🎀', '💌'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.fontSize = (Math.random() * 12 + 16) + 'px';
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        setInterval(createHeart, 500);
+
+        // Music Playlist & Control Logic
+        const songs = [
+            { title: "Until I Found You - Stephen Sanchez", url: "https://ia804702.us.archive.org/30/items/stephen-sanchez-until-i-found-you/Stephen%20Sanchez%20-%20Until%20I%20Found%20You.mp3" },
+            { title: "Enchanted - Taylor Swift", url: "https://ia801503.us.archive.org/15/items/taylor-swift-enchanted-tv/Taylor%20Swift%20-%20Enchanted%20%28TV%29.mp3" },
+            { title: "Lover - Taylor Swift", url: "https://ia601507.us.archive.org/15/items/lover-taylor-swift/Lover.mp3" },
+            { title: "Perfect - Ed Sheeran", url: "https://ia801608.us.archive.org/9/items/EdSheeranPerfect/EdSheeran-Perfect.mp3" }
+        ];
+
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const bgMusic = document.getElementById('bg-music');
+        const audioSource = document.getElementById('audio-source');
+        const musicSelector = document.getElementById('music-selector');
+        let isPlaying = false;
+
+        // Toggle music & menu
+        musicToggle.addEventListener('click', () => {
+            musicSelector.classList.toggle('hidden');
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.className = 'fas fa-music text-lg';
+                isPlaying = false;
+            } else {
+                playCurrentSong();
+            }
+        });
+
+        function playCurrentSong() {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause text-lg';
+            }).catch(e => console.log("User interaction required"));
+        }
+
+        function changeSong(index) {
+            const songBtns = document.querySelectorAll('.song-btn');
+            songBtns.forEach((btn, i) => {
+                if (i === index) {
+                    btn.className = "song-btn w-full text-left p-2 rounded-xl bg-pink-100/70 font-semibold text-roseDeep transition flex justify-between items-center";
+                    btn.innerHTML = `<span class="truncate">${songs[i].title}</span><i class="fas fa-heart text-[10px]"></i>`;
+                } else {
+                    btn.className = "song-btn w-full text-left p-2 rounded-xl hover:bg-pink-50 transition flex justify-between items-center text-gray-600";
+                    btn.innerHTML = `<span class="truncate">${songs[i].title}</span>`;
+                }
+            });
+
+            audioSource.src = songs[index].url;
+            bgMusic.load();
+            playCurrentSong();
+        }
+
+        // Blow Candle Logic
+        let candleBlown = false;
+        function blowCandle() {
+            if (candleBlown) return;
+            const flame = document.getElementById('flame');
+            const instruction = document.getElementById('cake-instruction');
+
+            flame.style.opacity = '0';
+            flame.style.transform = 'scale(0)';
+            candleBlown = true;
+
+            instruction.innerText = "✨ Harapanmu telah terkirim ke bintang-bintang!";
+            instruction.className = "mt-4 text-xs font-semibold text-roseDeep bg-yellow-100 px-4 py-1.5 rounded-full border border-yellow-300";
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Celebration Confetti
+        function popConfetti() {
+            confetti({
+                particleCount: 120,
+                spread: 90,
+                origin: { y: 0.7 }
+            });
+        }
+    </script>
+</body>
+</html>
