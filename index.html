@@ -36,7 +36,6 @@
     </script>
 
     <style>
-        /* Floating Soft Hearts Background Animation */
         .heart-float {
             position: fixed;
             color: rgba(244, 114, 182, 0.3);
@@ -50,7 +49,6 @@
             100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* Paper Journal Shadow & Texture */
         .journal-card {
             background-color: #FAF5EF;
             background-image: radial-gradient(#e5e0d8 0.75px, transparent 0.75px);
@@ -59,14 +57,12 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
 
-        /* Decorative Tape Effect */
         .tape {
             background-color: rgba(254, 240, 138, 0.75);
             box-shadow: 0 2px 4px rgba(0,0,0,0.08);
             backdrop-filter: blur(2px);
         }
 
-        /* Flame Glow Effect */
         .flame-glow {
             animation: pulseGlow 0.8s ease-in-out infinite alternate;
         }
@@ -76,11 +72,20 @@
             to { transform: scale(1.2); filter: drop-shadow(0 0 16px #BE185D); }
         }
 
-        /* Glassmorphism Player Badge */
         .glass-pill {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(244, 114, 182, 0.3);
+        }
+
+        /* Cake 3D Layer Styling */
+        .cake-layer-top {
+            background: linear-gradient(135deg, #fbcfe8, #f472b6);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.6), 0 4px 6px rgba(190,24,93,0.1);
+        }
+        .cake-layer-bottom {
+            background: linear-gradient(135deg, #ffe4e6, #fbcfe8);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.6), 0 6px 12px rgba(190,24,93,0.15);
         }
     </style>
 </head>
@@ -119,31 +124,45 @@
                 Every moment with you is my favorite memory
             </p>
 
-            <!-- CAKE CARD -->
+            <!-- ENHANCED INTERACTIVE CAKE CARD -->
             <div class="mt-8 relative journal-card p-8 rounded-3xl border-2 border-pink-100 hover:shadow-2xl">
                 <!-- Washi Tape Ornament -->
                 <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-6 rotate-[-1deg] rounded-sm"></div>
 
                 <div class="flex flex-col items-center">
                     <div id="cake" class="cursor-pointer group flex flex-col items-center transform transition duration-300 hover:scale-105" onclick="blowCandle()">
-                        <!-- Flame -->
-                        <div id="flame" class="flame-glow w-5 h-7 bg-amber-400 rounded-full border border-yellow-200 -mb-1 z-10 transition-all duration-500"></div>
-                        <!-- Candle -->
-                        <div class="w-3.5 h-9 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-300 rounded-t-sm shadow-inner"></div>
-                        <!-- Top Cake Layer -->
-                        <div class="w-40 h-14 bg-pink-200 rounded-t-2xl border-b-4 border-pink-300 flex items-center justify-center relative shadow-sm">
-                            <span class="text-[11px] text-roseDeep font-extrabold tracking-widest uppercase">My Dearest</span>
+                        <!-- Multi Candles Row -->
+                        <div class="flex items-center gap-4 mb-[-2px] z-10">
+                            <div class="flex flex-col items-center">
+                                <div id="flame-1" class="flame-glow w-3.5 h-6 bg-amber-400 rounded-full border border-yellow-200 transition-all duration-500"></div>
+                                <div class="w-2 h-7 bg-pink-300 rounded-t-sm"></div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div id="flame-2" class="flame-glow w-4 h-7 bg-amber-400 rounded-full border border-yellow-200 transition-all duration-500"></div>
+                                <div class="w-2.5 h-8 bg-rose-400 rounded-t-sm"></div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div id="flame-3" class="flame-glow w-3.5 h-6 bg-amber-400 rounded-full border border-yellow-200 transition-all duration-500"></div>
+                                <div class="w-2 h-7 bg-pink-300 rounded-t-sm"></div>
+                            </div>
                         </div>
-                        <!-- Bottom Cake Layer -->
-                        <div class="w-56 h-16 bg-rose-100 rounded-t-xl border-b-4 border-pink-200 flex items-center justify-center shadow-md">
-                            <span class="text-roseDeep font-handwriting text-3xl font-bold">Make a wish 🌸</span>
+
+                        <!-- Top Cake Layer with Cream Drips -->
+                        <div class="w-44 h-14 cake-layer-top rounded-t-3xl border-b-4 border-pink-400 flex items-center justify-center relative shadow-sm">
+                            <span class="text-[11px] text-white font-extrabold tracking-widest uppercase drop-shadow">Special Day ✨</span>
                         </div>
-                        <!-- Plate -->
-                        <div class="w-64 h-3.5 bg-gray-200 rounded-full shadow-lg"></div>
+                        
+                        <!-- Bottom Cake Layer with Strawberry Details -->
+                        <div class="w-60 h-16 cake-layer-bottom rounded-t-2xl border-b-4 border-pink-300 flex items-center justify-center shadow-md relative">
+                            <span class="text-roseDeep font-handwriting text-3xl font-bold drop-shadow-sm">Make a wish 🌸</span>
+                        </div>
+
+                        <!-- Cake Stand / Plate -->
+                        <div class="w-72 h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full shadow-lg mt-1"></div>
                     </div>
 
-                    <p id="cake-instruction" class="mt-5 text-xs font-bold text-roseDeep bg-pink-100/90 px-5 py-2 rounded-full border border-pink-300 shadow-sm transition-all duration-300">
-                        ✨ Sentuh lilin untuk meniupnya! ✨
+                    <p id="cake-instruction" class="mt-6 text-xs font-extrabold text-roseDeep bg-pink-100/90 px-6 py-2.5 rounded-full border border-pink-300 shadow-md transition-all duration-300 animate-pulse">
+                        🎂 Ketuk kuenya untuk meniup lilin & beri kejutan! 🎂
                     </p>
                 </div>
             </div>
@@ -159,7 +178,7 @@
                     <span class="text-3xl animate-bounce">💌</span>
                     <h2 class="text-3xl font-handwriting font-bold text-roseDeep">A Short Note For You</h2>
                 </div>
-                <span class="text-xs font-bold text-pink-400 bg-white px-3 py-1 rounded-full border border-pink-100">Tap to feel love 💖</span>
+                <span class="text-xs font-bold text-pink-400 bg-white px-3 py-1 rounded-full border border-pink-100">Tap to read lyric 🎵</span>
             </div>
 
             <div class="space-y-4 text-gray-700 text-sm sm:text-base leading-relaxed font-sans">
@@ -177,7 +196,7 @@
                         <p class="text-base font-semibold text-roseDeep">"I would never fall in love again until I found him..."</p>
                         <p>"I said, 'I would never fall in love' 'til somebody put his love around me."</p>
                     </div>
-                    <p class="text-right text-[10px] font-sans font-bold not-italic text-pink-400 pt-1">💡 Klik kotak ini untuk membaca lirik selanjutnya</p>
+                    <p class="text-right text-[10px] font-sans font-bold not-italic text-pink-400 pt-1">💡 Klik kotak ini untuk lirik selanjutnya</p>
                 </div>
 
                 <p>
@@ -199,21 +218,18 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                <!-- Photo 1 -->
                 <div class="journal-card p-3 rounded-2xl border border-pink-100 shadow-lg transform hover:-rotate-3 hover:scale-105 transition duration-300">
                     <div class="overflow-hidden rounded-xl">
                         <img src="image_89310c.jpg" alt="Your Joy Is My Sunshine" class="w-full aspect-square object-cover transform hover:scale-110 transition duration-500">
                     </div>
                     <p class="text-center font-handwriting text-2xl text-roseDeep font-bold mt-3">Your Joy Is My Sunshine ☀️</p>
                 </div>
-                <!-- Photo 2 -->
                 <div class="journal-card p-3 rounded-2xl border border-pink-100 shadow-lg transform hover:rotate-3 hover:scale-105 transition duration-300">
                     <div class="overflow-hidden rounded-xl">
                         <img src="image_893105.jpg" alt="Flowers & Forever With You" class="w-full aspect-square object-cover transform hover:scale-110 transition duration-500">
                     </div>
                     <p class="text-center font-handwriting text-2xl text-roseDeep font-bold mt-3">Flowers & Forever With You 💐</p>
                 </div>
-                <!-- Photo 3 -->
                 <div class="journal-card p-3 rounded-2xl border border-pink-100 shadow-md transform hover:-rotate-2 hover:scale-105 transition duration-300">
                     <div class="overflow-hidden rounded-xl">
                         <img src="image_8929c1.jpg" alt="Dinner Dates & Precious Moments" class="w-full aspect-square object-cover transform hover:scale-110 transition duration-500">
@@ -237,7 +253,6 @@
     </main>
 
     <script>
-        // Floating Heart Particles
         const heartContainer = document.getElementById('heart-container');
         const heartIcons = ['💖', '🌸', '✨', '💕', '🎀', '💌', '🌹'];
 
@@ -255,7 +270,6 @@
 
         setInterval(createHeart, 400);
 
-        // Music Control Logic
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         const musicLabel = document.getElementById('music-label');
@@ -286,28 +300,29 @@
             document.body.removeEventListener('click', startAudioOnFirstClick);
         }, { once: true });
 
-        // Blow Candle Logic
+        // Enhanced Blow Candle Logic
         let candleBlown = false;
         function blowCandle() {
             if (candleBlown) return;
-            const flame = document.getElementById('flame');
-            const instruction = document.getElementById('cake-instruction');
-
-            flame.style.opacity = '0';
-            flame.style.transform = 'scale(0)';
+            
+            ['flame-1', 'flame-2', 'flame-3'].forEach(id => {
+                const flame = document.getElementById(id);
+                flame.style.opacity = '0';
+                flame.style.transform = 'scale(0)';
+            });
+            
             candleBlown = true;
-
-            instruction.innerText = "✨ Harapanmu telah terkirim ke bintang-bintang!";
-            instruction.className = "mt-5 text-xs font-extrabold text-roseDeep bg-yellow-100 px-5 py-2 rounded-full border border-yellow-400 shadow-md animate-pulse";
+            const instruction = document.getElementById('cake-instruction');
+            instruction.innerText = "✨ Hore! Lilin telah ditiup, semoga semua impianmu terwujud! 🎉";
+            instruction.className = "mt-6 text-xs font-extrabold text-roseDeep bg-yellow-100 px-6 py-2.5 rounded-full border border-yellow-400 shadow-md animate-bounce";
 
             confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { y: 0.6 }
+                particleCount: 180,
+                spread: 90,
+                origin: { y: 0.55 }
             });
         }
 
-        // Interactive Lyric Switcher
         const lyrics = [
             `<p class="font-bold text-pink-600 not-italic text-[11px] uppercase tracking-wider mb-1">🎵 Until I Found You — Stephen Sanchez</p>
              <p class="text-base font-semibold text-roseDeep">"I would never fall in love again until I found him..."</p>
@@ -325,17 +340,15 @@
 
         function nextLyric() {
             lyricIdx = (lyricIdx + 1) % lyrics.length;
-            const container = document.getElementById('lyric-content');
-            container.innerHTML = lyrics[lyricIdx];
+            document.getElementById('lyric-content').innerHTML = lyrics[lyricIdx];
             
             confetti({
-                particleCount: 25,
-                spread: 50,
+                particleCount: 30,
+                spread: 60,
                 origin: { y: 0.5 }
             });
         }
 
-        // Celebration Confetti
         function popConfetti() {
             confetti({
                 particleCount: 160,
